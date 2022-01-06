@@ -4,16 +4,19 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+
 @app.get('/blog')
-def index(limit,published:bool):
+def index(limit: int, published: bool = True, sort: Optional[str] = None):
     if published:
-        return {'data':f'{limit} PUBLISHED blogs from database'}
+        return {'data': f'{limit} PUBLISHED blogs from database'}
     else:
-        return {'data':f'{limit} TOTAL blogs from database'}
+        return {'data': f'{limit} TOTAL blogs from database'}
+
 
 @app.get('/blog/unpublished')
 def unpublished():
     return{'data': 'all unpublished blogs'}
+
 
 @app.get('/blog/{id}')
 def show(id: int):
@@ -35,4 +38,5 @@ class Blog(BaseModel):
 
 @app.post('/blog')
 def create_blog(request: Blog):
+    return request
     return{'data': f"Blog is created with title as {request.title}"}
