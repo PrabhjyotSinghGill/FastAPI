@@ -5,8 +5,11 @@ from pydantic import BaseModel
 app = FastAPI()
 
 @app.get('/blog')
-def index(limit):
-   return {'data':f'{limit} blogs from database'}
+def index(limit,published:bool):
+    if published:
+        return {'data':f'{limit} PUBLISHED blogs from database'}
+    else:
+        return {'data':f'{limit} TOTAL blogs from database'}
 
 @app.get('/blog/unpublished')
 def unpublished():
