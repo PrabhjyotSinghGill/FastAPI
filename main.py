@@ -4,20 +4,13 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-@app.get('/blog/{id}')
-def index(id:int):
-    #only get 10 published blogs
-    return {'data':id}
-    if published:
-        return{'data':f'{limit} PUBLISHED blogs from the database'}
-    else:
-        return{'data':f'{limit} ALL blogs from the database'}
-
+@app.get('/blog')
+def index(limit):
+   return {'data':f'{limit} blogs from database'}
 
 @app.get('/blog/unpublished')
 def unpublished():
     return{'data': 'all unpublished blogs'}
-
 
 @app.get('/blog/{id}')
 def show(id: int):
